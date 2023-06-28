@@ -18,6 +18,8 @@ void E_Journall::AddStudent() {
 
 	if (Shead == nullptr && Ahead == nullptr) {
 		Shead = newStudent;
+		index = 1;
+		newStudent->index = index;
 		return;
 	}
 
@@ -176,7 +178,7 @@ void E_Journall::PrintList() {
 void E_Journall::ReadStudentFile() {	
 		ifstream fin("Student.txt");
 
-		int ind;
+		int ind = 0;
 		string name;
 
 		while (fin >> ind >> name)

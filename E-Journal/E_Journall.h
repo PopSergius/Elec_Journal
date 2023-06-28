@@ -24,7 +24,6 @@ private:
 	Student* Shead;
 	Attendance* Ahead;
 public:
-
 	E_Journall() { Shead = nullptr; Ahead = nullptr; }
 	//додавання студента в журнал
 	void AddStudent();
