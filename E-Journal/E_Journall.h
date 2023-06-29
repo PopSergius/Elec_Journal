@@ -21,9 +21,10 @@ class E_Journall {
 private:
 	int index = 0;
 	string date;
-	Student* Shead;
-	Attendance* Ahead;
+	Student* Shead = nullptr;
+	Attendance* Ahead = nullptr;
 public:
+	string class_name;
 	E_Journall() { Shead = nullptr; Ahead = nullptr; }
 	//додавання студента в журнал
 	void AddStudent();
@@ -48,4 +49,8 @@ public:
 	void ReadAttFile();
 	//Запис оцінок студентів
 	void WriteAttFile();
+
+	//Очищення списків
+	void clearStudentList();
+	void clearAttList();
 };

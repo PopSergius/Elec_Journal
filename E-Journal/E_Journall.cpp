@@ -175,35 +175,37 @@ void E_Journall::PrintList() {
 
 }
 
-void E_Journall::ReadStudentFile() {	
-		ifstream fin("Student.txt");
+void E_Journall::ReadStudentFile() {
+	string temp_class = class_name + "_Student.txt";
+	ifstream fin(temp_class);
 
-		int ind = 0;
-		string name;
+	int ind = 0;
+	string name;
 
-		while (fin >> ind >> name)
-		{
-			Student* newElem = new Student;
-			newElem->index = ind;
-			newElem->name = name;
-			newElem->next = nullptr;
-			if (Shead == nullptr) {
-				Shead = newElem;
-			}
-			else {
-				Student* current = Shead;
-				while (current->next != nullptr) { current = current->next; }
-
-				current->next = newElem;
-			}
+	while (fin >> ind >> name)
+	{
+		Student* newElem = new Student;
+		newElem->index = ind;
+		newElem->name = name;
+		newElem->next = nullptr;
+		if (Shead == nullptr) {
+			Shead = newElem;
 		}
-		index = ind;
+		else {
+			Student* current = Shead;
+			while (current->next != nullptr) { current = current->next; }
 
-		fin.close();	
+			current->next = newElem;
+		}
+	}
+	index = ind;
+
+	fin.close();
 }
 
 void E_Journall::WriteStudentFile() {
-	ofstream out("Student.txt");
+	string temp_class = class_name + "_Student.txt";
+	ofstream out(temp_class);
 	Student* current = Shead;
 
 	while (current != nullptr) {
@@ -215,7 +217,8 @@ void E_Journall::WriteStudentFile() {
 }
 
 void E_Journall::ReadAttFile() {
-	ifstream fin("Att.txt");
+	string temp_class = class_name + "_Att.txt";
+	ifstream fin(temp_class);
 
 	int ind;
 	string att;
@@ -239,7 +242,8 @@ void E_Journall::ReadAttFile() {
 }
 
 void E_Journall::WriteAttFile() {
-	ofstream out("Att.txt");
+	string temp_class = class_name + "_Att.txt";
+	ofstream out(temp_class);
 	Attendance* current = Ahead;
 
 	while (current != nullptr) {
@@ -249,4 +253,34 @@ void E_Journall::WriteAttFile() {
 	cout << endl;
 
 	out.close();
+}
+
+void E_Journall::clearStudentList() {
+	if (Shead == nullptr) {	return;	}
+
+	Student* current = Shead;
+	Student* next;
+
+	while (current != nullptr) {
+		next = current->next;
+		delete current;
+		current = next;
+	}
+
+	Shead = nullptr;
+}
+
+void E_Journall::clearAttList() {
+	if (Ahead == nullptr) { return; }
+
+	Attendance* current = Ahead;
+	Attendance* next;
+
+	while (current != nullptr) {
+		next = current->next;
+		delete current;
+		current = next;
+	}
+
+	Ahead = nullptr;
 }

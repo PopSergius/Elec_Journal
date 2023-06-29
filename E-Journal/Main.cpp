@@ -54,7 +54,7 @@ void ShowJournal(E_Journall& Ej) {
 		case 0: {} break;
 		default: { cout << "\nВвели значення не зі списку!"; } break;
 		}
-		system("pause"); system("cls");
+		system("cls");
 	} while (temp);
 }
 
@@ -62,26 +62,36 @@ void main() {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 	int temp;
+	string Class_name;
 	E_Journall Ej;
 
-	Ej.ReadStudentFile();
-	Ej.ReadAttFile();
-
 	do {
+		Ej.clearStudentList();
+		Ej.clearAttList();
+		cout << "\nВведіть назву предмета: => ";
+		cin >> Class_name;
+		Ej.class_name = Class_name;
+		Ej.ReadStudentFile();
+		Ej.ReadAttFile();
 
-		temp = Menu();
-		switch (temp) {
-		case 1: { AddStudent(Ej); } break;
-		case 2: { DelStudent(Ej); }break;
-		case 3: { AttStudent(Ej); } break;
-		case 4: { ShowJournal(Ej); } break;
-		case 5: { Ej.ProcentAtt(); } break;
-		default: { cout << "\nВвели значення не зі списку!"; } break;
-		}
-		system("cls");
+		do {
 
+			temp = Menu();
+			switch (temp) {
+			case 1: { AddStudent(Ej); } break;
+			case 2: { DelStudent(Ej); }break;
+			case 3: { AttStudent(Ej); } break;
+			case 4: { ShowJournal(Ej); } break;
+			case 5: { Ej.ProcentAtt(); } break;
+			default: { cout << "\nВвели значення не зі списку!"; } break;
+			}
+			system("cls");
+
+		} while (temp);
+		Ej.WriteStudentFile();
+		Ej.WriteAttFile();
+		cout << "\n1. Перейти до іншого класу" << "\n0. Вийти";
+		cin >> temp;
 	} while (temp);
 	cout << "Вихід з програми...";
-	Ej.WriteStudentFile();
-	Ej.WriteAttFile();
 }
